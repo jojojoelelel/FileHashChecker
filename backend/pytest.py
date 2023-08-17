@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
-import subprocess, os
+import os
+from md5_utils import generate_md5_hash
 
-#APP
 app = Flask(__name__)
 
 @app.route('/upload', methods=['POST'])
@@ -24,19 +24,6 @@ def upload_file():
     
     except Exception as e:
         return str(e), 500
-
-def generate_md5_hash(file_path):
-    try:
-        md5_hash = subprocess.check_output(['bash', 'generate_md5.sh', file_path])
-        return md5_hash.decode().strip()
-        
-    except subprocess.CalledProcessError as e:
-        print(f"Error while generating MD5 hash: {e}")
-        return None
-    
-def check_md5_checksums_equal(md5_checksums):
-
-    return all(md5_checksum == md5_checksums[0] for md5_checksum in md5_checksums)
 
 if __name__ == "__main__":
     app.run(debug=True)
