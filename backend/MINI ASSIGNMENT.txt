@@ -1,9 +1,0 @@
-1. Create a simple backend script in Python to process 2 files sent in and get their checksum.
-2. Expose it through an API module with Flask.
-3. Simple frontend site using React, Typescript and antdesign coponents that takes in two files.
-4. Dockerize all the modules above (1 for React, 1 for API, 1 for backend module).
-5. Use Docker Compose to define and run these Docker containers.
-6. FOr communication between Docker containers, you may consider two approaches.
-	a. Approach 1: Make use of zeroMQ, or a similar messaging queue library
-	b. Approach 2 : Put the containers in the same network and expose the relevant ports to each container for them to communicate with each other.
-7. Return the resultant checksums and a Boolean to indicate whether the files are the same or not onto the frontend.

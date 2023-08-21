@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Button, Upload } from 'antd';
 import { UploadOutlined, ExperimentFilled, DeleteOutlined, TranslationOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import DisabledContext from 'antd/es/config-provider/DisabledContext';
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 
 function App() {
@@ -37,7 +35,14 @@ function App() {
     </div>
   )
 
+  const dummyRequest = ({ file, onSuccess }:any ) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+
   const uploadPropsL = {
+    name:'file',
     beforeUpload: (file: File) => {
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]);
       setfileL((prevSelectedFiles) => [...prevSelectedFiles, file]);
@@ -47,6 +52,7 @@ function App() {
   };
 
   const uploadPropsR = {
+    name:'file',
     beforeUpload: (file: File) => {
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]);
       setfileR((prevSelectedFiles) => [...prevSelectedFiles, file]);
@@ -109,13 +115,13 @@ function App() {
       <div className='fileUpload-container'>
 
         <div className="fileUpload">
-          <Upload.Dragger multiple={false} {...uploadPropsL} disabled={fileLSelected} fileList={[]}>
+          <Upload.Dragger customRequest={dummyRequest} multiple={false} {...uploadPropsL} disabled={fileLSelected} fileList={[]}>
             {fileLSelected ? uploadedButtonL : uploadButton}
           </Upload.Dragger>
         </div>
 
         <div className="fileUpload">
-          <Upload.Dragger multiple={false} {...uploadPropsR} disabled={fileRSelected} fileList={[]}>
+          <Upload.Dragger customRequest={dummyRequest} multiple={false} {...uploadPropsR} disabled={fileRSelected} fileList={[]}>
             {fileRSelected ? uploadedButtonR : uploadButton}
           </Upload.Dragger>
         </div>

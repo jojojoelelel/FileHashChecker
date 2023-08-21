@@ -5,8 +5,11 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-file_path="$1"
+file_path=$1
 
-# Calculate and print the MD5 hash (md5sum) of the file
-md5sum_value=$(md5sum "$file_path" | awk '{print $1}')
-echo "$md5sum_value"
+if [ ! -f "$file_path" ]; then
+  echo "Error: File not found: $file_path"
+  exit 1
+fi
+
+md5sum "$file_path"
