@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import os
 from md5_utils import generate_md5_hash
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -26,4 +28,4 @@ def upload_file():
         return str(e), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

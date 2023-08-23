@@ -4,6 +4,9 @@ services:
     build: ./backend/
     image: myapp_backend
     container_name: miniapp-backend
+    environment:  
+      - FLASK_ENV=development
+      - FLASK_APP=server.py
     ports:
       - "5000:5000"
   
@@ -11,5 +14,11 @@ services:
     build: ./client/
     image: myapp_client
     container_name: miniapp-client
+    environment:
+      - NODE_ENV=development
     ports:
-      - "3000:3000"  
+      - "3000:3000" 
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
